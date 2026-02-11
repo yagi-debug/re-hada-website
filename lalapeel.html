@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LHALALA Peel | 次世代第4世代ピーリング - Re肌</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Material+Symbols+Outlined&display=swap" rel="stylesheet">
+<script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+<style>
+:root {
+  --gold: #b08d57;
+  --gold-dark: #8e6f42;
+  --gold-light: #d4bc8e;
+  --near-black: #1a1a1a;
+  --secondary-text: #4a4a4a;
+  --bg-beige: #fdfbf7;
+  --white: #ffffff;
+  --gray-line: #e0e0e0;
+  --soft-gray: #f8f8f8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Sans JP', sans-serif; color: var(--near-black); line-height: 1.8; background-color: var(--white); overflow-x: hidden; word-break: break-word; }
+.section { padding: 100px 0; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+.flex { display: flex; align-items: center; gap: 60px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+.center { text-align: center; }
+h1, h2, h3 { font-family: 'Playfair Display', 'Noto Sans JP', serif; letter-spacing: 0.03em; }
+.gold-text { color: var(--gold); }
+.sub-title { font-size: 0.85rem; letter-spacing: 0.4em; color: var(--gold); margin-bottom: 15px; display: block; font-weight: 700; text-transform: uppercase; }
+.main-title { font-size: 2.5rem; margin-bottom: 30px; line-height: 1.3; font-weight: 700; }
+.lead-text { font-size: 1.1rem; color: var(--secondary-text); margin-bottom: 2rem; }
+
+/* Hero */
+.hero { height: 90vh; display: flex; align-items: center; background: url('lalapeel-bottles.jpg') center center / cover no-repeat; position: relative; }
+.hero-box { max-width: 650px; padding: 80px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); border-left: 5px solid var(--gold); }
+.hero h1 { font-size: 4rem; color: var(--near-black); line-height: 1.1; margin-bottom: 1rem; }
+.hero p { font-size: 1.25rem; margin-bottom: 2rem; color: var(--secondary-text); font-weight: 300; }
+
+/* Concept */
+.concept-card { background: var(--soft-gray); padding: 50px; border-radius: 2px; }
+.concept-card h3 { font-size: 1.8rem; margin-bottom: 20px; color: var(--gold); }
+.concept-img { width: 100%; border-radius: 8px; object-fit: cover; }
+
+/* Mechanism */
+.mech-bg { background-color: var(--bg-beige); }
+.mech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
+.mech-card { background: var(--white); padding: 40px; border-top: 4px solid var(--gold); box-shadow: 0 15px 40px rgba(0,0,0,0.03); transition: transform 0.3s; }
+.mech-card:hover { transform: translateY(-5px); }
+.mech-card .icon { font-size: 48px; color: var(--gold); margin-bottom: 25px; display: block; }
+.mech-card h3 { margin-bottom: 15px; font-size: 1.4rem; }
+.mech-card p { font-size: 0.95rem; color: var(--secondary-text); }
+
+/* Comparison Table */
+.table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 50px; }
+.comparison-table { width: 100%; border-collapse: collapse; min-width: 700px; }
+.comparison-table th, .comparison-table td { padding: 18px 12px; border-bottom: 1px solid var(--gray-line); text-align: center; font-size: 0.9rem; }
+.comparison-table thead th { background: var(--soft-gray); font-weight: 700; color: var(--secondary-text); }
+.comparison-table .feature-col { text-align: left; font-weight: 700; background: var(--white); min-width: 120px; }
+.comparison-table .highlight { background: rgba(176, 141, 87, 0.18); border-left: 3px solid var(--gold); border-right: 3px solid var(--gold); font-weight: 700; color: var(--gold-dark); }
+.comparison-table .highlight-top { border-top: 3px solid var(--gold); }
+.comparison-table .highlight-bottom { border-bottom: 3px solid var(--gold); }
+.comparison-table thead th.highlight { background: var(--gold); color: #fff; font-size: 1rem; }
+
+/* Chart */
+#efficacyChart { width: 100%; height: 500px; }
+.chart-container { background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+
+/* Steps */
+.step-item { display: flex; gap: 30px; margin-bottom: 40px; align-items: flex-start; }
+.step-num { background: var(--gold); color: #fff; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; font-weight: 700; margin-top: 5px; }
+.step-content h4 { font-size: 1.2rem; margin-bottom: 8px; }
+
+/* Target */
+.target-list { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; list-style: none; }
+.target-list li { display: flex; align-items: center; gap: 10px; font-weight: 500; }
+.target-list li::before { content: "check_circle"; font-family: 'Material Symbols Outlined'; color: var(--gold); }
+
+/* CTA */
+.cta { background-color: var(--near-black); color: var(--white); padding: 120px 0; }
+.btn { display: inline-block; padding: 20px 60px; background-color: var(--gold); color: var(--white); text-decoration: none; font-weight: 700; letter-spacing: 0.2em; transition: 0.4s; margin-top: 30px; }
+.btn:hover { background-color: var(--white); color: var(--near-black); transform: scale(1.05); }
+
+/* FAQ */
+details { margin-bottom: 15px; border-bottom: 1px solid #eee; }
+summary { padding: 20px 0; cursor: pointer; font-weight: bold; list-style: none; position: relative; font-size: 1.05rem; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; position: absolute; right: 0; color: var(--gold); font-size: 1.5rem; }
+details[open] summary::after { content: "−"; }
+.qa-content { padding-bottom: 20px; color: #666; font-size: 0.95rem; }
+
+/* Back Link */
+.back-link { display: inline-block; padding: 14px 40px; background: var(--gold); color: #fff; border-radius: 4px; text-decoration: none; font-weight: 700; letter-spacing: 0.1em; transition: 0.3s; }
+.back-link:hover { background: var(--gold-dark); transform: translateY(-2px); }
+
+/* Info Footer */
+.info-footer { background: var(--soft-gray); padding: 40px 0; font-size: 0.8rem; color: var(--secondary-text); }
+
+@media (max-width: 992px) {
+  .flex { flex-direction: column; text-align: center; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .hero-box { padding: 40px; width: 90%; margin: 0 auto; }
+  .hero { height: auto; min-height: 80vh; padding: 60px 0; }
+  .hero h1 { font-size: 2.8rem; }
+  .main-title { font-size: 2rem; }
+  .target-list { grid-template-columns: 1fr; }
+  .section { padding: 60px 0; }
+  #efficacyChart { height: 350px; }
+  .table-wrapper { margin-left: -5%; margin-right: -5%; padding: 0 5%; }
+  .comparison-table { min-width: 600px; }
+}
+
+/* --- モバイル比較表: カード型レイアウト --- */
+@media (max-width: 768px) {
+  .hero { min-height: 60vh; padding: 80px 0 40px; }
+  .hero-box { padding: 28px 20px; width: 95%; border-left-width: 3px; }
+  .hero h1 { font-size: 2rem; }
+  .hero p { font-size: 1rem; }
+  .main-title { font-size: 1.6rem; }
+  .lead-text { font-size: 0.95rem; }
+  .sub-title { font-size: 0.75rem; letter-spacing: 0.2em; }
+  .concept-card { padding: 30px 20px; }
+  .concept-card h3 { font-size: 1.4rem; }
+  .mech-card { padding: 28px 20px; }
+  .mech-card h3 { font-size: 1.2rem; }
+  .btn { padding: 16px 40px; font-size: 0.9rem; letter-spacing: 0.1em; }
+  .chart-container { padding: 20px 10px; }
+  #efficacyChart { height: 280px; }
+
+  /* 比較表をカード型に変換 */
+  .table-wrapper { overflow-x: visible; }
+  .comparison-table { min-width: auto; }
+  .comparison-table thead { display: none; }
+  .comparison-table tbody tr {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--gray-line);
+    border-radius: 8px;
+    margin-bottom: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .comparison-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: right;
+    padding: 8px 4px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.85rem;
+  }
+  .comparison-table tbody td:last-child { border-bottom: none; }
+  .comparison-table tbody td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    text-align: left;
+    flex-shrink: 0;
+    margin-right: 12px;
+    color: var(--secondary-text);
+    max-width: 40%;
+  }
+  .comparison-table td.feature-col {
+    text-align: left;
+    background: var(--bg-beige);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--gold-dark);
+    display: block;
+    padding: 10px 12px;
+    margin-bottom: 4px;
+  }
+  .comparison-table td.feature-col::before { display: none; }
+  .comparison-table td.highlight {
+    border-left: 3px solid var(--gold);
+    border-right: none;
+    background: rgba(176, 141, 87, 0.2);
+    border-radius: 4px;
+    color: var(--gold-dark);
+  }
+  .comparison-table .highlight-top { border-top: none; }
+  .comparison-table .highlight-bottom { border-bottom: none; }
+
+  .step-item { gap: 16px; }
+  .step-content h4 { font-size: 1.05rem; }
+  .cta { padding: 80px 0; }
+  .cta .main-title { font-size: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-box">
+      <span class="sub-title">The 4th Generation Peeling Solution</span>
+      <h1>LHALALA<br><span class="gold-text">PEEL</span><span style="font-size: 0.5em; display: block;">（ララピール）</span></h1>
+      <p>剥離・痛み・ダウンタイムの時代は終わりました。<br>肌を削るのではなく「育てる」という新発想。韓国シェアNo.1の次世代ピーリング。</p>
+      <a href="https://beauty.hotpepper.jp/kr/slnH000797846/" target="_blank" rel="noopener" class="btn">今すぐ予約する</a>
+    </div>
+  </div>
+</section>
+
+<!-- Concept -->
+<section class="section">
+  <div class="container">
+    <div class="center" style="max-width: 800px; margin: 0 auto 80px;">
+      <span class="sub-title">REVOLUTION</span>
+      <h2 class="main-title">ララピールが「第4世代」と<br>呼ばれる理由</h2>
+      <p class="lead-text">従来のピーリングは、古い角質を「酸」で溶かして剥がすものでした。ララピールは、世界的な化粧品メーカー「ロレアル社」が開発した成分LHAに、特許技術を組み合わせることで、低刺激でありながら真皮層へ深くアプローチ。肌のバリア機能を強化しながら、内側からふっくらと輝く「水光肌」へと導きます。</p>
+    </div>
+    <div class="grid-2">
+      <div class="concept-card">
+        <h3>「剥がす」から「満たす」へ</h3>
+        <p>これまでのピーリング（AHA/BHA/TCA等）はタンパク質を凝固・溶解させることで肌を剥離させ、その反動で再生を促すものでした。ララピールは細胞の結合を個別に緩め、同時に有効成分を「満たす」ことで、施術直後からキメの整った、潤い溢れる肌を実現します。</p>
+      </div>
+      <div>
+        <img src="images/lalapeel-hero.png" alt="施術直後のツヤ肌イメージ" class="concept-img">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Core Components -->
+<section class="section mech-bg">
+  <div class="container">
+    <div class="center">
+      <span class="sub-title">CORE COMPONENTS</span>
+      <h2 class="main-title">3つの独自成分による<br>シナジー効果</h2>
+    </div>
+    <div class="mech-grid">
+      <div class="mech-card">
+        <span class="material-symbols-outlined icon">Science</span>
+        <h3>LHA (カプリロイルサリチル酸)</h3>
+        <p>ロレアル社が開発。中性に近い弱酸性（pH5.5）で、皮膚を刺激せずにゆっくりと浸透。角質細胞の接着を個別に解除し、非常に均一で微細な角質除去を可能にします。</p>
+      </div>
+      <div class="mech-card">
+        <span class="material-symbols-outlined icon">Auto_Fix_High</span>
+        <h3>P-Sol™ (特許成分)</h3>
+        <p>世界初のアルカリ成分。線維芽細胞の活性化を促し、コラーゲンやエラスチンの生成をブースト。ピーリングの概念を覆す「真皮層の厚みを増す」効果の核となります。</p>
+      </div>
+      <div class="mech-card">
+        <span class="material-symbols-outlined icon">Shield</span>
+        <h3>Lipids (天然由来脂質)</h3>
+        <p>傷んだ肌を保護し、バリア機能をサポート。ピーリング後のデリケートな肌に膜を張り、ダメージから守りながら有効成分の吸収を最大化します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Clinical Evidence -->
+<section class="section">
+  <div class="container">
+    <div class="flex">
+      <div style="flex: 1;">
+        <span class="sub-title">CLINICAL DATA</span>
+        <h2 class="main-title">学術的に証明された<br><span class="gold-text">肌再生パフォーマンス</span></h2>
+        <p>ララピールの主要成分LHAは、従来のAHA（グリコール酸等）と比較して、非常に高い組織修復能を持つことが確認されています。特にシワ、色素沈着、皮膚の厚みの改善において、従来のピーリングを遥かに凌ぐ結果を出しています。</p>
+        <div style="margin-top: 30px;">
+          <ul class="target-list">
+            <li>シワ改善率 137%</li>
+            <li>色素沈着改善率 135%</li>
+            <li>真皮の厚み増加（トレチノイン同等以上）</li>
+            <li>バリア機能の回復・正常化</li>
+          </ul>
+        </div>
+      </div>
+      <div style="flex: 1.2;">
+        <div class="chart-container">
+          <div id="efficacyChart"></div>
+          <p style="font-size: 0.75rem; color: #999; margin-top: 15px; text-align: right;">※第1世代ピーリングを100%とした場合の相対比較（自社調べ）</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison Table (5種類比較) -->
+<section class="section mech-bg">
+  <div class="container">
+    <div class="center">
+      <span class="sub-title">COMPARISON</span>
+      <h2 class="main-title">ピーリング比較表</h2>
+    </div>
+    <div class="table-wrapper">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th class="feature-col">項目</th>
+            <th>アラジンピール</th>
+            <th>AHA</th>
+            <th>BHA</th>
+            <th class="highlight highlight-top">LHALALAピール</th>
+            <th>水光ピーリング<br><small>（ムルトゥス）</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="feature-col">治療時間</td>
+            <td data-label="アラジンピール">25〜30分</td>
+            <td data-label="AHA">約40分</td>
+            <td data-label="BHA">40〜50分</td>
+            <td class="highlight" data-label="LHALALAピール"><strong>20分</strong></td>
+            <td data-label="水光ピーリング">約50分</td>
+          </tr>
+          <tr>
+            <td class="feature-col">副作用</td>
+            <td data-label="アラジンピール">赤み、火傷など</td>
+            <td data-label="AHA">赤みやトラブルを<br>引き起こす可能性</td>
+            <td data-label="BHA">火傷などのトラブル<br>洗い流す必要がある</td>
+            <td class="highlight" data-label="LHALALAピール"><strong>非常に少ない</strong></td>
+            <td data-label="水光ピーリング">トラブルを引き起こす<br>かゆみ</td>
+          </tr>
+          <tr>
+            <td class="feature-col">ダウンタイム</td>
+            <td data-label="アラジンピール">7〜10日</td>
+            <td data-label="AHA">なし</td>
+            <td data-label="BHA">3日以上</td>
+            <td class="highlight" data-label="LHALALAピール"><strong>なし</strong></td>
+            <td data-label="水光ピーリング">なし</td>
+          </tr>
+          <tr>
+            <td class="feature-col">痛み</td>
+            <td data-label="アラジンピール">とても痛い</td>
+            <td data-label="AHA">わずかな痛み</td>
+            <td data-label="BHA">とても痛い</td>
+            <td class="highlight" data-label="LHALALAピール"><strong>なし</strong></td>
+            <td data-label="水光ピーリング">なし</td>
+          </tr>
+          <tr>
+            <td class="feature-col">かゆみ</td>
+            <td data-label="アラジンピール">非常に高い</td>
+            <td data-label="AHA">少し</td>
+            <td data-label="BHA">少し</td>
+            <td class="highlight" data-label="LHALALAピール"><strong>非常に少ない</strong></td>
+            <td data-label="水光ピーリング">非常に少ない</td>
+          </tr>
+          <tr>
+            <td class="feature-col">中和剤の有無</td>
+            <td data-label="アラジンピール">なし</td>
+            <td data-label="AHA">あり</td>
+            <td data-label="BHA">あり</td>
+            <td class="highlight" data-label="LHALALAピール"><strong>なし</strong></td>
+            <td data-label="水光ピーリング">あり</td>
+          </tr>
+          <tr>
+            <td class="feature-col">光過敏反応</td>
+            <td data-label="アラジンピール">なし<br><small>※紫外線カットが必須</small></td>
+            <td data-label="AHA">起こりうる</td>
+            <td data-label="BHA">あり</td>
+            <td class="highlight highlight-bottom" data-label="LHALALAピール"><strong>なし</strong></td>
+            <td data-label="水光ピーリング">あり</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Target Audience -->
+<section class="section">
+  <div class="container">
+    <div class="center" style="max-width: 800px; margin: 0 auto 60px;">
+      <span class="sub-title">WHO IS IT FOR?</span>
+      <h2 class="main-title">こんなお悩みを持つ方に</h2>
+    </div>
+    <ul class="target-list" style="max-width: 800px; margin: 0 auto;">
+      <li>肌が弱く、従来のピーリングで肌荒れした</li>
+      <li>毛穴の開き、黒ずみが気になる</li>
+      <li>内側から発光するような「水光肌」になりたい</li>
+      <li>小じわ、肌のハリ不足を感じている</li>
+      <li>ニキビ跡や肌の凹凸を改善したい</li>
+      <li>ダウンタイムなしで即効性を感じたい</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Treatment Steps -->
+<section class="section mech-bg">
+  <div class="container">
+    <div class="center">
+      <span class="sub-title">TREATMENT STEPS</span>
+      <h2 class="main-title">ララピールの施術フロー</h2>
+      <p class="lead-text">専用の筆を使い、優しく肌に浸透させる心地よいトリートメントです。</p>
+    </div>
+    <div style="max-width: 700px; margin: 50px auto 0;">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>マイクロバブルクレンジング</h4>
+          <p>専用のLHA成分配合フォームで、毛穴の奥の汚れを優しく浮き上がらせます。筆を使ったマッサージでリラックス効果も。</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>LHALALA Basic (1次導入)</h4>
+          <p>首から顔全体へLHA成分を塗布。角質層を整え、有効成分の通り道を作ります。</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>LHALALA Ultra (2次導入)</h4>
+          <p>さらに深部までアプローチ。線維芽細胞に働きかけ、コラーゲンの生成を強力に促します。</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>専用ゲルマスク (鎮静・保湿)</h4>
+          <p>1本分の美容液を凝縮したハイドロゲルマスクで密閉。肌の温度を下げ、キメを一気に引き締めます。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Aftercare -->
+<section class="section">
+  <div class="container">
+    <div class="concept-card">
+      <span class="sub-title">AFTERCARE GUIDE</span>
+      <h2 class="main-title">施術後の注意点</h2>
+      <p>ララピールはダウンタイムがほとんどありませんが、より効果を持続させるために以下の点にご注意ください。</p>
+      <div class="grid-2" style="margin-top: 30px;">
+        <ul style="list-style: none;">
+          <li style="margin-bottom: 10px;"><strong>■ 洗顔について：</strong> 当日夜・翌朝はぬるま湯のみ。洗顔料は翌日夜から。</li>
+          <li style="margin-bottom: 10px;"><strong>■ 紫外線対策：</strong> 吸収が良くなっているため、日焼け止めは必須です。</li>
+        </ul>
+        <ul style="list-style: none;">
+          <li style="margin-bottom: 10px;"><strong>■ 保湿の徹底：</strong> 普段より多めの保湿を心がけてください。</li>
+          <li style="margin-bottom: 10px;"><strong>■ 控えるべき成分：</strong> 1週間はレチノールやスクラブを避けてください。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section mech-bg">
+  <div class="container" style="max-width: 800px;">
+    <div class="center">
+      <span class="sub-title">FAQ</span>
+      <h2 class="main-title">よくあるご質問</h2>
+    </div>
+    <details>
+      <summary>Q. ケミカルピーリングをすることで得られる効果は？</summary>
+      <div class="qa-content">不要な角質を取り除く事でターンオーバーを正常化し、新しい皮膚の細胞再生を促します。またシミ・色素沈着・ニキビの改善・真皮のコラーゲンの産生を促す効果もあるので、シワやたるみの改善にも効果的です。あらゆる肌のトラブルを改善します。</div>
+    </details>
+    <details>
+      <summary>Q. LHALALAフィルとは？</summary>
+      <div class="qa-content">LHA成分にアルカリ成分を融合した唯一無二の製品になります。</div>
+    </details>
+    <details>
+      <summary>Q. ララフィルのピーリングの成分は？</summary>
+      <div class="qa-content">LHA（カプリロイヤルサリチル酸＝リポヒドロキシ酸）/ H2sol（強アルカリ性）/ Lipids（リン脂質）の3種類です。<br><br>ララフィルの主成分LHAは角質層と同じ弱酸性（pH5.5）、H2Sd1は強アルカリ成分になっています。低刺激でマイルドに角質を除去し、アルカリ成分によって肌の奥までゆっくりと浸透し、肌のバリア機能を損なわず、真皮層の再生、コラーゲンやエラスチンなど線維芽細胞を活性化します。</div>
+    </details>
+    <details>
+      <summary>Q. 従来のピーリングの成分とLHAは何が違いますか？</summary>
+      <div class="qa-content">LHAは、従来のAHAやBHAよりも、分子量が大きく、角質層と同じ弱酸性（pH5.5）、かつ脂溶性で、ゆっくりと表皮に浸透していく特徴があります。また中和剤の必要がありません。<br><br>従来のピーリング成分は角質を溶かすため、皮膚が薄くなり長期の使用ができなかったり、刺激が強かったりとデメリットがありましたが、LHAは角質と角質の接着をゆるめ、真皮層の再生を促し古い角質がはがれやすくなるため、ターンオーバーが正常化されます。<br><br>さらに線維芽細胞の活性化によりコラーゲンやエラスチンが再生され皮膚を分厚くする効果もあります。また、角化細胞の形状や配列が整い、角質層の構造やバリア機能が改善されるため、うるおい・弾力のある肌に導きます。</div>
+    </details>
+    <details>
+      <summary>Q. ララフィルは何回の施術回数で効果がわかりますか？</summary>
+      <div class="qa-content">10回コースがベストです。1回でも効果の実感はありますが、3回以上続ける事で肌の保湿感や透明感のアップなどの違いがより実感できるかと思います。</div>
+    </details>
+    <details>
+      <summary>Q. 赤みが出てしまった場合、どのように対処すれば良いでしょうか？</summary>
+      <div class="qa-content">赤みが酷い場合や時間を置いても赤みが引かない場合はしばらく冷やしてください。かゆみが無ければ徐々に赤みが引く事がほとんどです。</div>
+    </details>
+    <details>
+      <summary>Q. ピーリング塗布後にピリピリするのですが大丈夫ですか？</summary>
+      <div class="qa-content">ピリピリ・ムズムズするのは、正常な反応です。我慢できないほどの痛みを伴うようでしたらすぐにふき取りを行ってください。</div>
+    </details>
+    <details>
+      <summary>Q. 塗ってはいけない部分はありますか？</summary>
+      <div class="qa-content">眉、リップなどのアートメイク、毛髪カラーリング直後はその周辺を避けてください。色落ちの可能性があります。特に問題がなければ、まぶたや唇にも使用可能です。</div>
+    </details>
+    <details>
+      <summary>Q. 拭きとりの際、注意することはありますか？</summary>
+      <div class="qa-content">肌に負担をかけないようにガーゼでお肌をこすらずに押さえるようにふき取ってください。鎮静の役割を兼ねて、冷たいガーゼで拭き取ってください。</div>
+    </details>
+    <details>
+      <summary>Q. 施術後の注意点を教えて下さい。</summary>
+      <div class="qa-content">
+        施術後は肌吸収が良くなっているため、日焼け止めのみで半日ほどフルメイクは避けて下さい。<br>
+        当日の夜は日焼け止めを塗っている場合はクレンジングを行う。翌朝は水洗いのみ。<br>
+        アルコール成分の入った化粧品や香水など刺激になるものは避けて下さい。<br>
+        ピーリング後は、デリケートな状態ですので保湿とUVケアをしっかりと行ってください。<br><br>
+        <strong>他施術との間隔：</strong><br>
+        ・美容針やダーマペンなど肌に傷を付ける施術 → 2週間<br>
+        ・医療脱毛 → 2週間<br>
+        ・エステ脱毛 → 1週間<br>
+        ・お顔剃り → 1〜2週間、ご自身の肌のコンディションを確認してから
+      </div>
+    </details>
+    <div style="background:#fff5f5; border:1px solid #ffcccc; padding:25px; border-radius:8px; margin-top:40px;">
+      <h4 style="color:#d9534f; margin-top:0;">【下記に該当する場合は施術をお控えください】</h4>
+      <ul style="font-size:0.9rem; margin-bottom:0; line-height:2;">
+        <li>日焼け直後</li>
+        <li>肌に炎症が起きている（強度のアトピー、かぶれ）</li>
+        <li>短期間でのケミカルピーリング後</li>
+        <li>ゴマージュ、スクラブ後</li>
+        <li>シェービング直後（シェービング後は、2〜3日後に施術を行ってください）</li>
+        <li>顔の傷の部分</li>
+        <li>妊娠中の方</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta center">
+  <div class="container">
+    <span class="sub-title" style="color: var(--white); opacity: 0.8;">DISCOVER YOUR NEW SKIN</span>
+    <h2 class="main-title" style="color: var(--white);">自分史上最高のツヤ、<br>ララピールで手に入れる。</h2>
+    <p style="opacity: 0.9; color: var(--white);">まずはカウンセリングから。プロのスタッフがあなたの肌を診断します。</p>
+    <a href="https://beauty.hotpepper.jp/kr/slnH000797846/" target="_blank" rel="noopener" class="btn">今すぐ予約する</a>
+    <div style="margin-top: 20px;">
+      <a href="index.html" style="color: var(--gold-light); font-size: 0.9rem;">← Re肌 トップに戻る</a>
+    </div>
+  </div>
+</section>
+
+<footer class="info-footer center">
+  <div class="container">
+    <p>&copy; 2026 生体機能に着目した大人の肌質改善Labo Re肌 / LHALALA Peel（ララピール）. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script>
+window.onload = function() {
+  var data = [{
+    x: ['シワ改善率', '色素沈着改善率', '真皮の厚み', 'コラーゲン誘導'],
+    y: [137, 135, 142, 128],
+    type: 'bar',
+    marker: {
+      color: '#b08d57',
+      opacity: 0.8,
+      line: { color: '#8e6f42', width: 1.5 }
+    },
+    hovertemplate: '<b>%{x}</b><br>向上率: %{y}%<extra></extra>'
+  }];
+  var layout = {
+    font: { family: 'Noto Sans JP, sans-serif' },
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    margin: { t: 40, r: 20, l: 60, b: 60 },
+    yaxis: {
+      gridcolor: '#eeeeee',
+      tickfont: { color: '#666666' },
+      range: [0, 160],
+      title: { text: '改善・向上率 (%)', font: { size: 12, color: '#666666' } }
+    },
+    xaxis: { tickfont: { color: '#333333', size: 13 } }
+  };
+  var config = { responsive: true, displayModeBar: false };
+  Plotly.newPlot('efficacyChart', data, layout, config);
+};
+</script>
+
+</body>
+</html>
