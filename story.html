@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Re肌ストーリー | 繰り返す肌悩みに、終止符を。</title>
+  <meta name="description" content="38歳・美香の肌質改善ストーリー。繰り返す肌悩みを、身体の内側から変える。Re肌の施術を漫画で紹介。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #1a1a1a;
+      color: #fff;
+      font-family: 'Noto Sans JP', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── ヘッダー ── */
+    .manga-header {
+      text-align: center;
+      padding: 60px 20px 40px;
+      background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 100%);
+    }
+    .manga-header .logo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    .manga-header .logo .re { color: #c8a87e; }
+    .manga-header .logo .hada { color: #fff; }
+    .manga-header h1 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: #aaa;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── 漫画エリア ── */
+    .manga-scroll {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 0 0 0;
+    }
+    .manga-scroll img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ── チャプター区切り ── */
+    .chapter-break {
+      text-align: center;
+      padding: 48px 20px;
+      background: #1a1a1a;
+    }
+    .chapter-break h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #c8a87e;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .chapter-break .divider {
+      width: 40px;
+      height: 1px;
+      background: #c8a87e;
+      margin: 16px auto;
+      opacity: 0.5;
+    }
+    .chapter-break p {
+      font-size: 0.85rem;
+      color: #666;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── CTA ── */
+    .manga-cta {
+      text-align: center;
+      padding: 60px 20px 80px;
+      background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
+    }
+    .manga-cta .catch {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 8px;
+      letter-spacing: 0.08em;
+    }
+    .manga-cta .sub {
+      font-size: 0.85rem;
+      color: #999;
+      margin-bottom: 32px;
+      letter-spacing: 0.05em;
+    }
+    .manga-cta .btn {
+      display: inline-block;
+      padding: 16px 48px;
+      background: linear-gradient(135deg, #c8a87e, #b8956a);
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(200, 168, 126, 0.3);
+    }
+    .manga-cta .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(200, 168, 126, 0.4);
+    }
+    .manga-cta .info {
+      margin-top: 24px;
+      font-size: 0.8rem;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    /* ── 戻るリンク ── */
+    .back-link {
+      text-align: center;
+      padding: 20px;
+      background: #0d0d0d;
+    }
+    .back-link a {
+      color: #666;
+      font-size: 0.8rem;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+    .back-link a:hover { color: #c8a87e; }
+
+    /* ── Fade-in animation ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="manga-header">
+    <div class="logo"><span class="re">Re</span><span class="hada">肌</span></div>
+    <h1>── 美香の肌質改善ストーリー ──</h1>
+  </header>
+
+  <main class="manga-scroll">
+
+    <!-- 第1章：繰り返す肌悩み -->
+    <div class="chapter-break">
+      <h2>Chapter 1</h2>
+      <div class="divider"></div>
+      <p>繰り返す肌悩み</p>
+    </div>
+    <img src="images/page-01.jpg" alt="PAGE 1: 朝の鏡" class="fade-in" loading="lazy">
+    <img src="images/page-02.jpg" alt="PAGE 2: 化粧台の前で" class="fade-in" loading="lazy">
+    <img src="images/page-03.jpg" alt="PAGE 3: エステの帰り道" class="fade-in" loading="lazy">
+    <img src="images/page-04.jpg" alt="PAGE 4: あきらめの夜" class="fade-in" loading="lazy">
+
+    <!-- 第2章：出会い -->
+    <div class="chapter-break">
+      <h2>Chapter 2</h2>
+      <div class="divider"></div>
+      <p>出会い</p>
+    </div>
+    <img src="images/page-05.jpg" alt="PAGE 5: 友人・あやの肌" class="fade-in" loading="lazy">
+    <img src="images/page-06.jpg" alt="PAGE 6: あやの説明" class="fade-in" loading="lazy">
+
+    <!-- 第3章：Re肌体験 -->
+    <div class="chapter-break">
+      <h2>Chapter 3</h2>
+      <div class="divider"></div>
+      <p>Re肌体験</p>
+    </div>
+    <img src="images/page-07.jpg" alt="PAGE 7: 初回カウンセリング" class="fade-in" loading="lazy">
+    <img src="images/page-08.jpg" alt="PAGE 8: 3STEPの施術" class="fade-in" loading="lazy">
+    <img src="images/page-09.jpg" alt="PAGE 9: 施術直後" class="fade-in" loading="lazy">
+
+    <!-- 第4章：変化と確信 -->
+    <div class="chapter-break">
+      <h2>Chapter 4</h2>
+      <div class="divider"></div>
+      <p>変化と確信</p>
+    </div>
+    <img src="images/page-10.jpg" alt="PAGE 10: 3回目の朝" class="fade-in" loading="lazy">
+    <img src="images/page-11.jpg" alt="PAGE 11: 変わった日常" class="fade-in" loading="lazy">
+    <img src="images/page-12.jpg" alt="PAGE 12: 読者へのメッセージ" class="fade-in" loading="lazy">
+
+  </main>
+
+  <!-- CTA -->
+  <section class="manga-cta">
+    <p class="catch">本来のあなたの肌を、もう一度。</p>
+    <p class="sub">繰り返す肌悩みを、身体の内側から断つ肌質改善専門サロン</p>
+    <a href="https://beauty.hotpepper.jp/kr/slnH000797846/" target="_blank" rel="noopener" class="btn">初回体験を予約する</a>
+    <div class="info">
+      Re肌 ── 肌質改善専門サロン<br>
+      天王寺駅14番出口すぐ アポロビル7F<br>
+      初回体験 ¥9,800〜
+    </div>
+  </section>
+
+  <div class="back-link">
+    <a href="index.html">← Re肌 トップページに戻る</a>
+  </div>
+
+  <!-- Scroll fade-in -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
